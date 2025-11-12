@@ -25,11 +25,6 @@ class MongodbConsumerTest extends TestCase
         $this->assertClassImplements(Consumer::class, MongodbConsumer::class);
     }
 
-    public function testCouldBeConstructedWithRequiredArguments()
-    {
-        new MongodbConsumer($this->createContextMock(), new MongodbDestination('queue'));
-    }
-
     public function testShouldReturnInstanceOfDestination()
     {
         $destination = new MongodbDestination('queue');
@@ -39,6 +34,9 @@ class MongodbConsumerTest extends TestCase
         $this->assertSame($destination, $consumer->getQueue());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCouldCallAcknowledgedMethod()
     {
         $consumer = new MongodbConsumer($this->createContextMock(), new MongodbDestination('queue'));
@@ -183,7 +181,7 @@ class InvalidMessage implements Message
         throw new \BadMethodCallException('This should not be called directly');
     }
 
-    public function setCorrelationId(string $correlationId = null): void
+    public function setCorrelationId(?string $correlationId = null): void
     {
     }
 
@@ -192,7 +190,7 @@ class InvalidMessage implements Message
         throw new \BadMethodCallException('This should not be called directly');
     }
 
-    public function setMessageId(string $messageId = null): void
+    public function setMessageId(?string $messageId = null): void
     {
     }
 
@@ -206,11 +204,11 @@ class InvalidMessage implements Message
         throw new \BadMethodCallException('This should not be called directly');
     }
 
-    public function setTimestamp(int $timestamp = null): void
+    public function setTimestamp(?int $timestamp = null): void
     {
     }
 
-    public function setReplyTo(string $replyTo = null): void
+    public function setReplyTo(?string $replyTo = null): void
     {
     }
 

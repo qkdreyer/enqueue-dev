@@ -9,11 +9,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class CalculateRootJobStatusServiceTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCouldBeConstructedWithRequiredArguments()
-    {
-        new CalculateRootJobStatusService($this->createJobStorageMock());
-    }
-
     public function stopStatusProvider()
     {
         return [
@@ -25,8 +20,6 @@ class CalculateRootJobStatusServiceTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stopStatusProvider
-     *
-     * @param mixed $status
      */
     public function testShouldDoNothingIfRootJobHasStopState($status)
     {
@@ -75,8 +68,6 @@ class CalculateRootJobStatusServiceTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stopStatusProvider
-     *
-     * @param mixed $stopStatus
      */
     public function testShouldCalculateRootJobStatusAndSetStoppedAtTimeIfGotStopStatus($stopStatus)
     {
@@ -361,7 +352,7 @@ class CalculateRootJobStatusServiceTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return MockObject|\Enqueue\JobQueue\Doctrine\JobStorage
+     * @return MockObject|JobStorage
      */
     private function createJobStorageMock()
     {

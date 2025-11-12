@@ -18,15 +18,10 @@ class SimpleRegistryTest extends TestCase
         $this->assertClassImplements(Registry::class, SimpleRegistry::class);
     }
 
-    public function testCouldBeConstructedWithEventsMapAndTransformersMapAsArguments()
-    {
-        new SimpleRegistry([], []);
-    }
-
     public function testShouldAllowGetTransportNameByEventName()
     {
         $registry = new SimpleRegistry([
-                'fooEvent' => 'fooTrans',
+            'fooEvent' => 'fooTrans',
         ], []);
 
         $this->assertEquals('fooTrans', $registry->getTransformerNameForEvent('fooEvent'));

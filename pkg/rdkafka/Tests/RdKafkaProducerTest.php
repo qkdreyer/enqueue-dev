@@ -17,11 +17,6 @@ use RdKafka\TopicConf;
 
 class RdKafkaProducerTest extends TestCase
 {
-    public function testCouldBeConstructedWithKafkaProducerAndSerializerAsArguments()
-    {
-        new RdKafkaProducer($this->createKafkaProducerMock(), $this->createSerializerMock());
-    }
-
     public function testThrowIfDestinationInvalid()
     {
         $producer = new RdKafkaProducer($this->createKafkaProducerMock(), $this->createSerializerMock());
@@ -51,7 +46,7 @@ class RdKafkaProducerTest extends TestCase
             ->expects($this->once())
             ->method('producev')
             ->with(
-                RD_KAFKA_PARTITION_UA,
+                \RD_KAFKA_PARTITION_UA,
                 0,
                 'theSerializedMessage',
                 'key',
@@ -188,7 +183,7 @@ class RdKafkaProducerTest extends TestCase
             ->expects($this->once())
             ->method('producev')
             ->with(
-                RD_KAFKA_PARTITION_UA,
+                \RD_KAFKA_PARTITION_UA,
                 0,
                 'theSerializedMessage',
                 'theSerializedKey'
@@ -329,7 +324,7 @@ class RdKafkaProducerTest extends TestCase
             ->expects($this->once())
             ->method('producev')
             ->with(
-                RD_KAFKA_PARTITION_UA,
+                \RD_KAFKA_PARTITION_UA,
                 0,
                 '',
                 $key
@@ -359,7 +354,7 @@ class RdKafkaProducerTest extends TestCase
             ->expects($this->once())
             ->method('producev')
             ->with(
-                RD_KAFKA_PARTITION_UA,
+                \RD_KAFKA_PARTITION_UA,
                 0,
                 '',
                 $key

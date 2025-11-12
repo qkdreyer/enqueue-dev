@@ -1,5 +1,65 @@
 # Change Log
 
+## [0.10.26](https://github.com/php-enqueue/enqueue-dev/tree/0.10.26) (2025-05-10)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.25...0.10.26)
+
+**Merged pull requests:**
+
+- Fix: Updating composer [\#1383](https://github.com/php-enqueue/enqueue-dev/pull/1383) ([JimTools](https://github.com/JimTools))
+- Fix: Fixing CI [\#1382](https://github.com/php-enqueue/enqueue-dev/pull/1382) ([JimTools](https://github.com/JimTools))
+
+## [0.10.25](https://github.com/php-enqueue/enqueue-dev/tree/0.10.25) (2025-04-18)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.24...0.10.25)
+
+**Merged pull requests:**
+
+- Bugfix/static drift [\#1373](https://github.com/php-enqueue/enqueue-dev/pull/1373) ([JimTools](https://github.com/JimTools))
+- CS Fixes [\#1372](https://github.com/php-enqueue/enqueue-dev/pull/1372) ([JimTools](https://github.com/JimTools))
+- Fixing risky tests [\#1371](https://github.com/php-enqueue/enqueue-dev/pull/1371) ([JimTools](https://github.com/JimTools))
+
+## [0.10.24](https://github.com/php-enqueue/enqueue-dev/tree/0.10.24) (2024-11-30)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.23...0.10.24)
+
+**Merged pull requests:**
+
+- SF7 deprecations fix [\#1364](https://github.com/php-enqueue/enqueue-dev/pull/1364) ([zavitkov](https://github.com/zavitkov))
+- add symfony 7 support for enqueue-bundle [\#1362](https://github.com/php-enqueue/enqueue-dev/pull/1362) ([zavitkov](https://github.com/zavitkov))
+
+## [0.10.23](https://github.com/php-enqueue/enqueue-dev/tree/0.10.23) (2024-10-01)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.22...0.10.23)
+
+**Merged pull requests:**
+
+- Drop useless call to end method [\#1359](https://github.com/php-enqueue/enqueue-dev/pull/1359) ([ddziaduch](https://github.com/ddziaduch))
+
+## [0.10.22](https://github.com/php-enqueue/enqueue-dev/tree/0.10.22) (2024-08-13)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.21...0.10.22)
+
+**Merged pull requests:**
+
+- GPS: revert the attributes and use the headers instead. [\#1355](https://github.com/php-enqueue/enqueue-dev/pull/1355) ([p-pichet](https://github.com/p-pichet))
+
+## [0.10.21](https://github.com/php-enqueue/enqueue-dev/tree/0.10.21) (2024-08-12)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.20...0.10.21)
+
+**Merged pull requests:**
+
+- feat\(GPS\): allow send attributes in Google PubSub message. [\#1349](https://github.com/php-enqueue/enqueue-dev/pull/1349) ([p-pichet](https://github.com/p-pichet))
+
+## [0.10.19](https://github.com/php-enqueue/enqueue-dev/tree/0.10.19) (2023-07-15)
+[Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.18...0.10.19)
+
+**Merged pull requests:**
+
+- fix: do not reset attemps header when message is requeue [\#1301](https://github.com/php-enqueue/enqueue-dev/pull/1301) ([eortiz-tracktik](https://github.com/eortiz-tracktik))
+- Allow doctrine/persistence 3.1 version [\#1300](https://github.com/php-enqueue/enqueue-dev/pull/1300) ([xNarkon](https://github.com/xNarkon))
+- Add support for rediss and phpredis [\#1297](https://github.com/php-enqueue/enqueue-dev/pull/1297) ([splagemann](https://github.com/splagemann))
+- Replaced `json\_array` with `json` due to Doctrine Dbal 3.0 [\#1294](https://github.com/php-enqueue/enqueue-dev/pull/1294) ([NovakHonza](https://github.com/NovakHonza))
+- pkg PHP 8.1 and 8.2 support [\#1292](https://github.com/php-enqueue/enqueue-dev/pull/1292) ([snapshotpl](https://github.com/snapshotpl))
+- Update doctrine/persistence [\#1290](https://github.com/php-enqueue/enqueue-dev/pull/1290) ([jlabedo](https://github.com/jlabedo))
+- Add PHP 8.1 and 8.2, Symfony 6.2 to CI [\#1285](https://github.com/php-enqueue/enqueue-dev/pull/1285) ([andrewmy](https://github.com/andrewmy))
+- \[SNSQS\] added possibility to send FIFO-related parameters using snsqs transport [\#1278](https://github.com/php-enqueue/enqueue-dev/pull/1278) ([onatskyy](https://github.com/onatskyy))
+
 ## [0.10.18](https://github.com/php-enqueue/enqueue-dev/tree/0.10.18) (2023-03-18)
 [Full Changelog](https://github.com/php-enqueue/enqueue-dev/compare/0.10.17...0.10.18)
 

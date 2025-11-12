@@ -9,9 +9,9 @@ jobs:
     name: Static analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: technote-space/get-diff-action@v4
+      - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
             pkg/**/*.php
@@ -25,7 +25,7 @@ jobs:
 
       - run: php ./bin/fix-symfony-version.php "5.4.*"
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: "ramsey/composer-install@v3"
 
       - run: sed -i 's/525568/16777471/' vendor/kwn/php-rdkafka-stubs/stubs/constants.php
 
@@ -37,9 +37,9 @@ jobs:
     name: Code style check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: technote-space/get-diff-action@v4
+      - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
             pkg/**/*.php
@@ -49,7 +49,7 @@ jobs:
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-cs-check-${{ hashFiles('**/composer.json') }}
@@ -58,7 +58,7 @@ jobs:
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.2'
           coverage: none
           extensions: mongodb, redis, :xdebug
           ini-values: memory_limit=2048M
@@ -69,7 +69,7 @@ jobs:
 
       - run: sed -i 's/525568/16777471/' vendor/kwn/php-rdkafka-stubs/stubs/constants.php
 
-      - run: ./bin/php-cs-fixer fix --config=.php_cs.php --no-interaction --dry-run --diff -v --path-mode=intersection -- ${{ env.GIT_DIFF_FILTERED }}
+      - run: ./bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --no-interaction --dry-run --diff -v --path-mode=intersection -- ${{ env.GIT_DIFF_FILTERED }}
         if: env.GIT_DIFF_FILTERED
 
   unit_tests:
@@ -77,30 +77,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
-        symfony_version: ['5.4.*', '6.2.*', '6.3.*']
+        php: ['8.1', '8.2']
+        symfony_version: ['6.2.*', '6.3.*', '6.4.*', '7.0.*']
         dependencies: ['--prefer-lowest', '--prefer-dist']
         exclude:
-          - php: '7.4'
-            symfony_version: '6.2.*'
-          - php: '7.4'
-            symfony_version: '6.3.*'
-          - php: '8.0'
-            symfony_version: '6.2.*'
-          - php: '8.0'
-            symfony_version: '6.3.*'
+          - php: '8.1'
+            symfony_version: '7.0.*'
 
     name: PHP ${{ matrix.php }} unit tests on Sf ${{ matrix.symfony_version }}, deps=${{ matrix.dependencies }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ matrix.php }}-${{ matrix.symfony_version }}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
@@ -127,30 +121,28 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2'] # same as in the container
-        symfony_version: ['5.4.*', '6.2.*', '6.3.*']
-        dependencies: ['--prefer-lowest', '--prefer-dist']
+        php: [ '8.1', '8.2' ]
+        symfony_version: [ '6.4.*', '7.0.*', '7.1.*', '7.2.*' ]
+        dependencies: [ '--prefer-lowest', '--prefer-dist' ]
         exclude:
-          - php: '7.4'
-            symfony_version: '6.2.*'
-          - php: '7.4'
-            symfony_version: '6.3.*'
-          - php: '8.0'
-            symfony_version: '6.2.*'
-          - php: '8.0'
-            symfony_version: '6.3.*'
+          - php: '8.1'
+            symfony_version: '7.0.*'
+          - php: '8.1'
+            symfony_version: '7.1.*'
+          - php: '8.1'
+            symfony_version: '7.2.*'
 
     name: PHP ${{ matrix.php }} functional tests on Sf ${{ matrix.symfony_version }}, deps=${{ matrix.dependencies }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ matrix.php }}-${{ matrix.symfony_version }}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
@@ -174,10 +166,4 @@ jobs:
         env:
           PHP_VERSION: ${{ matrix.php }}
 
-      # TODO: convert these two steps into one w/o excludes when Gearman extension gets a release for PHP 8.1
-      # See https://github.com/php/pecl-networking-gearman/issues/16
-      - run: bin/test.sh
-        if: ${{ matrix.php != '8.1' && matrix.php != '8.2' }}
-
-      - run: bin/test.sh --exclude-group=gearman
-        if: ${{ matrix.php == '8.1' && matrix.php != '8.2' }}
+      - run: bin/test.sh --group=functional

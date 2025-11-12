@@ -20,11 +20,6 @@ class JsonSerializerTest extends TestCase
         $this->assertClassImplements(Serializer::class, JsonSerializer::class);
     }
 
-    public function testCouldBeConstructedWithoutAnyArguments()
-    {
-        new JsonSerializer();
-    }
-
     public function testShouldConvertMessageToJsonString()
     {
         $serializer = new JsonSerializer();
@@ -42,7 +37,7 @@ class JsonSerializerTest extends TestCase
 
         $resource = fopen(__FILE__, 'r');
 
-        //guard
+        // guard
         $this->assertIsResource($resource);
 
         $message = new WampMessage('theBody', ['aProp' => $resource]);

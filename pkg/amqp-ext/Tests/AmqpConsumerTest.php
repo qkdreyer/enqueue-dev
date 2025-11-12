@@ -5,7 +5,6 @@ namespace Enqueue\AmqpExt\Tests;
 use Enqueue\AmqpExt\AmqpConsumer;
 use Enqueue\AmqpExt\AmqpContext;
 use Enqueue\Test\ClassExtensionTrait;
-use Interop\Amqp\Impl\AmqpQueue;
 use Interop\Queue\Consumer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -17,11 +16,6 @@ class AmqpConsumerTest extends TestCase
     public function testShouldImplementConsumerInterface()
     {
         $this->assertClassImplements(Consumer::class, AmqpConsumer::class);
-    }
-
-    public function testCouldBeConstructedWithContextAndQueueAsArguments()
-    {
-        new AmqpConsumer($this->createContext(), new AmqpQueue('aName'));
     }
 
     /**

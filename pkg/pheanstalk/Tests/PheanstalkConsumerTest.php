@@ -14,14 +14,6 @@ class PheanstalkConsumerTest extends TestCase
 {
     use ClassExtensionTrait;
 
-    public function testCouldBeConstructedWithDestinationAndPheanstalkAsArguments()
-    {
-        new PheanstalkConsumer(
-            new PheanstalkDestination('aQueueName'),
-            $this->createPheanstalkMock()
-        );
-    }
-
     public function testShouldReturnQueueSetInConstructor()
     {
         $destination = new PheanstalkDestination('aQueueName');
@@ -54,7 +46,7 @@ class PheanstalkConsumerTest extends TestCase
     public function testShouldReceiveFromQueueAndReturnMessageIfMessageInQueue()
     {
         $destination = new PheanstalkDestination('theQueueName');
-        $message = new  PheanstalkMessage('theBody', ['foo' => 'fooVal'], ['bar' => 'barVal']);
+        $message = new PheanstalkMessage('theBody', ['foo' => 'fooVal'], ['bar' => 'barVal']);
 
         $job = new Job('theJobId', json_encode($message));
 
